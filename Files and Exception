@@ -1,0 +1,652 @@
+print("==========================================")
+print(" INTRO TO FILES AND EXCEPTIONS IN PYTHON ")
+print("==========================================")
+# -------------------------------------------------------------------------
+# Keys:
+# EX - examples
+# op - output
+# -------------------------------------------------------------------------
+# Here we will be learning to work with files so your programs can
+# analyze lots of data.
+# -------------------------------------------------------------------------
+# Defintions:
+# 1)Exceptions- are special objects python creates to mangage errors that arise
+# while a program is running.
+# 2)json module - allows you to save user data so it isnt
+# lost when your program stops running.
+# -------------------------------------------------------------------------
+print("Reading From A File:")
+print("------------------------------------------")
+# When you want to work with info in a text file, the first thing you want to
+# do is to read the file into memory.
+# ------------------------------------------------------------------------
+# Reading A File Into Memory.
+#
+print("1)Reading A File Into Memory:")
+# To do any work with a file you must open the file to access the contents
+
+with open("text_files.txt") as file_object:
+    contents = file_object.read()
+    print(contents)
+
+# Explaining:
+# 1)with;The keyword 'with' tells python to close the file once
+# access to it is no longer needed.
+# 2)open("text_files.txt") ;Tells python to open the file 'text_files.txt'
+# and then return an object representing 'text_files.txt' which then
+# stores all the contents of that file into 'file_object'.
+# NOTE:THE OPEN() FUNCTION NEEDS ONE ARGUMENT AND THATS THE FILE
+# YOU WANT TO OPEN.
+# NOTE:REMEMBER WHEN OPENING A FILE YOU MUST ADD A COLON(:) AT THE END
+# IN ORDER FOR THE INDENTED PIECES OF CODE TO WORK.
+#
+# 3)The indented pieces of code:
+# 3a)contents = file_object.read();Then we store the file_object into the
+# the variable content.
+# .read();The 'read()' method stores the contents of 'text_files' as one
+# long string.
+# -------------------------------------------------------------------------
+# File Paths
+# -------------------------------------------------------------------------
+# File paths - tells python to look in a specific location on your system.
+
+# 1)When you pass a simple filename like 'text_files.txt' to open() function
+# python looks in the directory where that file that is currently  being excuted is stored
+# stored.
+# 1a)so say if you store your files  in a folder called 'projects' and within
+# that folder there are two sperate folders one for your code and one for your
+# texts files
+# 1b)So when trying to open the folder for the text files, you cant
+# just open up the main folder hoping to have access to the sperate folders too.
+# because python will just open 'projects' folder and stop there.
+#  EX:
+# with open('projects') as file_object:
+
+# 2)So what you have to do is use a relative file path:
+# 2a) Relative File path - tells python to look for a given location
+# relative(the folder where the text files are stored) to the directory('projects')
+# where the currently running program file is stored.
+# EX:
+# with open('text_files/filename.txt') as file_object:
+# 2b)This line tells python to look in the folder where you keep the text files
+# and then you provide the text file you want to use from that folder(directory)
+
+# 3)You can also tell python where exactly the file is on your computer.
+# EX:
+# file_path = '/Users/kevin/projects/text_files/filename.txt
+# with open(file_path) as file_object:
+
+# 1)This called a 'absolute file path'  and you can use this way if
+# 'relative file path' doesn't work.
+# 2)The store it in a variable(file_path) is because the path of the file
+# is longer then a 'relative file path'.
+# NOTE:IF YOU USE BACKSLASH IN A FILE PATH,YOU WILL GET A ERROR BECAUSE
+# PYTHON USED TO ESCAPE CHARACTERS IN STRINGS.
+# EX:
+# C:\path\to\file\file.txt
+# 2a) the '\t' in 'to' confuses python bacause it thinks you are
+# trying to create a tab(\t)
+# -------------------------------------------------------------------------
+# Reading Line By Line
+# -------------------------------------------------------------------------
+# Lets say you are looking for certain information in the file ,or you
+# want to modify the text in the file someway we can use a 'for loop'
+# on a file_object.
+# EX:
+print("2)Reading Line By Line:")
+file_name = "text_files.txt"
+with open(file_name) as file_object:
+    for line in file_object:
+        print(line)
+
+# Explaining:
+# 1)First we create a variable to store the file('text_files.txt')
+# we are reading;Which is a common way when working with files
+# 1a)"text_files.txt";The reason that this is just a string is because
+# its not a actual file it just tells python where to find the file.
+# 2)with;helps python open and close the file properly so your data
+# isnt corrupted.
+# 2a) open(file_name) as file_object:;Tell python to open the file
+# and create a object of the file,which  then stores the contents of that file into
+#'file_object'.
+# 3)for line in file_object:;This tells python to pull the contents
+# of the file so we can work them line by line.
+# 4)If you wanted to remove the blank lines that was created by the
+# print statement you can use the 'strip()' method to get rid of them.
+# EX:
+# print(line.strip())
+# -------------------------------------------------------------------------
+# Making A List Of Lines From A File
+# -------------------------------------------------------------------------
+# readlines() Method- takes each line from the file and stores it in a list
+
+# NOTE:When you use the 'with' keyword the object returned by
+# the open() function is only available in side the 'with'
+# block that contains it.But using readlines() we are able to
+# work with the file object out side the 'with' block.
+# EX:
+print("3)Using The 'readlines()' Method:")
+file_name = "text_files.txt"
+with open(file_name) as file_object:
+    lines = file_object.readlines()
+
+for line in lines:
+    print(line)
+
+# Explaining:
+# 1)First we give the name of the file as a string so python
+# knows where to find the text file("text_files.txt") and store
+# in a variable(file_name) to be easy to use in the 'open()' function.
+# 2)with;The 'with' keyword tells python when to properly close the file
+# after the indented pieces of code are excuted.
+# 3)open(file_name) as file_object:;opens the file and creates a object
+# of the file, then we store contents of that file into 'file_object'
+# 4)The indented pieces of code:
+# 4a)lines = file_object.readlines();Tells python to convert the contents
+# stored in the object 'file_object' into a list so we can work with
+# the contents outside of the 'with' block.
+# 5)for line in lines:;Tells python to grab all the content from
+# the variable lines(= file_object.readlines())which contents
+# the file object as list  and print them out.
+
+# NOTE:WHEN USING readlines() METHOD YOU CAN REMOVE THE 'S' FROM
+#'readlines()' IF YOU WANTED TO GET JUST THE FIRST LINE IN THE LIST.
+# EX:lines = file_object.readline()
+# -------------------------------------------------------------------------
+# Working With Contents Of A File
+# -------------------------------------------------------------------------
+# Here we will be taking the contents of text_files.txt and creating one single
+# string instead of mutiple lines.
+# EX:
+print("4)Creating A Single String Instead Of Having Multiply Lines:")
+file_name = "text_files.txt"
+with open(file_name) as file_object:
+    lines = file_object.readlines()
+string = ""
+for line in lines:
+    string += line.strip()
+print(string)
+print("\n4a)How Many Numbers Are In The List 'file_object'.")
+print(len(string))
+# Explaining:
+# 1)First we use the same list of the file object for 'text_files.txt'
+# which is stored in the variable lines within the 'with' block.
+# 2)string= '';then we create a empty string to store the items
+# from the 'for loop'(for line in lines:)
+# 3)for line in lines:;Tells python to grab all the items stored in
+#'lines' and store them in temporary variable 'line'.
+# 3a)The indented pices of code:
+# 3b)string += line.strip(); Tells python to add all the digits
+# from the list 'lines'  to the variable 'string' and to
+# strip all the white spaces.
+# 5) print(string);Shows the output of the 'for loop'
+# 6)print(len(string));shows how many numbers are in that string.
+
+# NOTE:WHEN PYTHON READS FROM A TEXT FILE,IT INTERPETS ALL THE TEXT
+# IN THE FILE AS A STRING.SO IF YOU WANT TO DO NUMERICAL COMPARISION
+# THEN YOU WOULD HAVE TO THE STRING REPRESENTATION OF THE NUMBERS
+# TO THE NUMERICAL REPRSENTATION OF THE NUMBER USING THE
+# 'int()' function
+# =========================================================================
+print("==========================================")
+print("     INTRO TO WRITTING TO A FILE")
+print("==========================================")
+# =========================================================================
+# When writting to a text file, you are simply adding more content to a
+# to the text file with in the 'with' block.
+# You can open the file in  four modes:
+# 1)read mode('r')
+# 2)write mode('w')
+# 3)append mode('a')
+# 4)read and write mode('r+')
+# NOTE:When you provide no argument python automatically opens the file
+# in read mode ('r')
+# -------------------------------------------------------------------------
+print("1)Writting To An Empty File.")
+# Writting To An Empty File.
+# EX:
+file_name_2 = "text_file_2.txt"
+with open(file_name_2, "w") as file_object:
+    file_object.write("Python is the best!")
+# Explaining:
+# 1)First we create a a variable which holds the name of the new
+# text file we are going to create('text_file_2.txt')
+# 2)with;Tells python when to close the file properly so that our
+# data doesn't get corrupted
+# 2a)When opening this file, since we dont have a file named 'text_file_2.txt'
+# pythons creates a new file named 'text_file_2.txt' in your directory.
+# 2b)The open() function contains two arguments:
+# 2c)file_name_2;This tells python which file we would like to open
+# 2d)'w';This tells python to open the file in 'write mode'
+# 2e)as file_object:;Tells python to store the contents of the file object
+# created when we opened the file in 'file_object'.
+# 3)The indended pieces of code:
+# 3a)file_object.write("Python is the best!");Here we give python
+# the name of the file object and use the 'write()' method to create
+# a sentance("Python is the best!").
+# NOTE: WHEN YOU OPEN A FILE IN 'write()' MODE BECAREFUL BECAUSE
+# IF THERE IS A FILE WITH THE SAME NAME THAT YOUR WRITTING TO
+# PYTHON WILL DELETE THE OLD FILE BEFORE RETURNING THE FILE OBJECT.
+# NOTE: PYTHON CAN ONLY WRITE STRINGS TO A FILE IF OU WANT TO USE
+# NUMBERS YOU MUST CONVERT THE DATA TO STRING FORMAT FIRST USING THE
+#'str()' FUNCTION.
+# -------------------------------------------------------------------------
+print("2)Appending To A File")
+# Appending To A File
+# -------------------------------------------------------------------------
+# If You want to add content to a file instead of writting over existing
+# content you can open the file in 'appened' mode.
+# NOTE:WHEN YOU OPEN THE FILE IN 'append' MODE PYTHON DOESN'T ERASE THE FILE
+# BEFORE RETURNING THE FILE OBJECT LIKE IT WOULD IN 'write' MODE.
+# Any lines you append to the txt file will be added to the end of the
+# file and if the file name that your using doesn't exist yet python
+# will create an empty file for you.
+# EX:
+file_name_2 = "text_file_2.txt"
+with open(file_name_2, "a") as file_object:
+    file_object.write("\nI also love creating games in python!\n")
+    file_object.write("I love creating apps in python.\n")
+
+# Explaining:
+# 1)open(file_name_2, "a");Here we are opening the 'text_file_2.txt' in
+# append mode('a') and store the object of the the file into file_object
+# 2)Then we write two new lines to show you how append mode('a') works
+# 3) Now you can go to 'file ' in your left hand coner and go to
+#'open file' to look for the file name 'text_file_2.txt
+# ========================================================================
+print("==========================================")
+print("         INTRO TO EXCEPTIONS")
+print("==========================================")
+# =========================================================================
+# Exceptions- manages errors that arise during a programs execution.
+
+# 1)Exceptions are handled with what is called a try-except blocks.
+# 2)Try-except blocks ask python to try a peice of code and if a error
+# occurs  then to print a response that the user can understand
+# instead of the traceback.Which allows the program to keep running.
+# 3)Try-except block works wells for helping to prevent malicious attacks
+# as well,Because if the traceback shown instead of the try-except block
+# the  hacker could sometimes use the information from the traceback to determine
+# what kind of hacks could be  used.
+# -------------------------------------------------------------------------
+# Handling The ZeroDivsionError Exception
+# Trying to divide by zero.
+# print(5/0)
+
+# Explaining:
+# 1)Here we try to divide by zero which brings up the error:
+# 1a)ZeroDivisionError: division by zero
+
+# Heres on to fix the ZeroDivisionError: division by zero.
+# EX:
+print("1)Using try-except block on the ZeroDivisionError:")
+try:
+    print(5 / 0)
+except ZeroDivisionError:
+    print("Cant Divide By zero")
+
+# EX:
+# 1)try:;The try block tells python to try and print 5 divide by zero.
+# 2)except ZeroDivisionError:;Tells python once the try block(print(5/0))
+# is excuted if the ZeroDivisionError occurs then to print a message telling
+# the user that you can't divide by zero.
+# 3)If more code was after the try-except block the program would have
+# kept running.
+# -------------------------------------------------------------------------
+# Using The 'else' block.
+print("\n2)Using The 'else'block:")
+# -------------------------------------------------------------------------
+#'else' block - code that depends on the try-exepct block to pass goes
+# into the else block.
+# EX:
+
+print("\nGive me two numbers,and I'll divide Them.")
+print("Enter 'q' to quit")
+
+# while True:
+#    first_number = input("\nfirst number: ")
+#    if first_number == "q":
+#        break
+#    last_number = input("\nLast Number: ")
+#    try:
+#        answer = int(first_number) / int(last_number)
+#    except ZeroDivisionError:
+#        print("You Cant divide by zero!")
+#    else:
+#        print(answer)
+
+# Explaining:
+# 1)First we create two print statements telling users we need
+# two numbers to divide by and to enter 'q' to quit.
+# 2)while True:;Tells python keep running this while-loop
+# until a condition(if or try-except-else block.) is met.
+# 3)first_number = input("\nfirst number: ");Tells python to store the users input
+# for there first number in variable 'first_number'.
+# 4)if first_number == "q":;Tells python if the user input is equal to(==) 'q'
+# then end(break) the program.
+# 5)last_number = input("\nLast Number: ");Tells python to store the users
+# input for there last number in the variable 'last_number'.
+# 6)try:;Tells python to try and excute the division of the first and last
+# number:
+# answer = int(first_number) / int(last_number)
+# 7)except ZeroDivisionError:;Tells python if this error occurs when
+# trying to excute  int(first_number) / int(last_number) then print
+# You Cant divide by zero.
+# 8)else:;Tells python if the excecpt block is not true then print the
+# answer.
+# ------------------------------------------------------------------------
+# Handling The FileNotFoundError Exception
+print("\n3)Handling The FileNotFoundError Exception.")
+# -------------------------------------------------------------------------
+# Trying To Read A File Thats Not There.
+# EX:
+filename = "alice.txt"
+try:
+    with open(filename, encoding="utf-8") as f_obj:
+        contents = f_obj.read()
+except FileNotFoundError:
+    print("File " + filename + " is not found in directory.")
+# Explaining:
+# 1)First we create a variable that contains a string which is
+# the name of a text file that does not exist.
+# 2)try:;Tells python to try and open the contents of the text file
+#'alice.txt'.
+# 3)with; Tells python once the indented piece of code has been
+# excuted then properly close the file.
+# 4)open(filename, ;Tells python to open the contents of this
+# file and create a object of it to be used with the 'with' block.
+# 4a)encoding='utf-8';UTF-8 is a variable width character encoding
+# capable of encoding all 1,112,064 valid code points in Unicode
+# using one to four one-byte code units.
+# 5)as f_obj:;Tells python to save the file object of filename as
+#'f_obj'.
+# 6)The indented pieces of code:
+# 6a)contents = f_obj.read();Tells python to store all the characters in the
+# text file 'alice.txt' into variable 'contents'
+# 7)except FileNotFoundError:;Tells python that if this
+# error occurs then print out the statement that tell the user
+# that the name of the text file 'alice.txt'was not found.
+# -------------------------------------------------------------------------
+# Analyzing Text
+print("\n4Analyzing Text.")
+# -------------------------------------------------------------------------
+# Using the split() Method.
+# split() method- seperates a string into parts(wherever it finds a space) and
+# store all the parts of the string in a list.
+# NOTE;SOME PUNCTUATIONS MAY ALSO APPEAR WITH SOME OF THE WORDS.
+print("\n4a)Using The split() Method")
+# EX:
+
+filename = "book_text_file.txt"
+try:
+    with open(filename, encoding="utf-8") as f_obj:
+        contents = f_obj.read()
+except FileNotFoundError:
+    print("File " + filename + " is not found in directory.")
+else:
+    words = contents.split()
+    num_words = len(words)
+    print("The file " + filename + " has " + str(num_words) + " in it.")
+# Explaining
+# 1)First we create a variable that stores the name of the file text
+# we are going to use.
+# 2)try:;Tells python to try and open the text file "book_text_file.txt"
+# as a object named 'f_obj',Then store the contents of "book_text_file.txt"
+# into the variable contents
+# 3)except FileNotFoundError:;Tells python  if the error  'FileNotFoundError'
+# occurs then tell the user that the file name you are looking for can
+# not be found.
+# 4)The indented lines in the else block:
+# 4a)words = contents.split();Tells python to use the split() method on
+# the words in the text file "book_text_file.txt"  and  store the list
+# of words created by the split method into the variable contents.
+# 4b)num_words = len(words);Tells python to count how long the list(words)
+# is and store that number into the variable 'num_words'.
+# 4c)print("The file " + filename + " has " + str(num_words) + " in it.");
+# Is a print statement that tells the user how many words are in the
+# text file "book_text_file.txt".
+# NOTE:SOMETIMES ASKING FOR THE LENGTH A TEXT FILE WILL ONLY GIVE YOU
+# THE APPROXIMATION.BECAUSE OF THE EXTRA INFROMATION THE AUTHOR PUT IN
+# THE TEXT FILE.
+# -------------------------------------------------------------------------
+print("\n5)Creating a Function Using The try-except-else block.")
+# Working With Multiple Files
+# -------------------------------------------------------------------------
+
+
+def word_count(filename):
+    try:
+        with open(filename, encoding="utf-8") as f_obj:
+            contents = f_obj.read()
+    except FileNotFoundError:
+        print("File " + filename + " is not found in directory.")
+    else:
+        words = contents.split()
+        num_words = len(words)
+        print("The file " + filename + " has " + str(num_words) + " in it.")
+
+
+filename = "book_text_file.txt"
+word_count(filename)
+# Explaining:
+# 1)First we define a function named 'word_count' with one parameter
+# the variable 'filename' which contains the text file 'book_text_file.txt'.
+# 2)try:;Tells python to try and open the text file 'book_text_file.txt' and
+# create a object of it named 'f_obj'
+# 2a)The indented pieces of code:
+# 2b)contents = f_obj.read();Tells python to store the object containing the
+# the contents of the file object(f_obj) and store it in the variable 'contents'
+# 3)except FileNotFoundError:;Tells python if the error  'FileNotFound'  occurs
+# then tell the user that the file they are looking for has not been found.
+# 4)else:;tells python to split() the text stored in the variable 'contents'
+# and store the list created from the split() Method into the variable
+#'words'.Then we get the length of the list and store it in variable
+#'num_words'.which will be presented in the print statement for the
+# user to see how many words are the text file 'book_text_file.txt'.
+# -------------------------------------------------------------------------
+# We can also get the count of multiple texts files by simple creating a list
+# with text files as elements we want to get the count for and then create
+# a function call for 'word_count'
+# EX:
+print("\n5a)Using 'word_count()' Funtion To Count Words From Multiple Txt Files.")
+filenames = ["book_text_file.txt", "alice.txt", "peterson.txt"]
+for filename in filenames:
+    word_count(filename)
+# -------------------------------------------------------------------------
+# NOTE:THE 'pass' STATEMENT TELLS PYTHON TO SKIP OVER A PIECE OF CODE WHETHER
+# IT FAILS OR NOT.
+# -------------------------------------------------------------------------
+# =========================================================================
+print("==========================================")
+print("          INTRO TO JSON Format")
+print("==========================================")
+# =========================================================================
+# JSON(JavaScript Object Notation)- is a module that allows you to dump simple
+# python data structures into a file and load the data from that file the
+# next time the program runs.
+
+# Seeing how JSON data format is not specific to Python programs,You can share
+# data you store in JSON format with people who work on many other programming
+# languages.
+# -------------------------------------------------------------------------
+print("1)Using json.dump() and json.load().")
+# -------------------------------------------------------------------------
+# json.dump() function - stores information in JSON format
+# The json.dump() function takes two arguments:
+# 1)A piece of data to store
+# 2)A file object to store the infromation in.
+# EX:
+import json
+
+numbers = [2, 3, 5, 7, 8]
+
+filename = "numbers.json"
+with open(filename, "w") as file_object:
+    json.dump(numbers, file_object)
+# Explaining:
+# 1)First we import the json module(import json)
+# 2)Then we create a list of numbers and store the list in the variable
+#'numbers'.
+# 3)filename = 'numbers.json';Tells python to convert the simple list 'numbers'
+# into 'json' format(which then creates a new '.json' file in  your directory),
+# and store it in the variable filename.
+# 4)with open(filename,'w') as file_object:;Tells python to open the
+# file(filename) in write mode('w') which allows json to write the
+# data to the file 'numbers.json' and name the file object created from
+# opening 'filename' as file_object
+# 5)The indented pieces of code:
+# 5a)json.dump(numbers,file_object);Tells python to store or 'dump', the list
+# in file 'numbers.json'.
+# NOTE:THIS PROGRAM HAS NO OUPUT!!
+# ------------------------------------------
+# json.load() function- loads infromation stored in the JSON file so
+# you can view the data through the  teminal.
+# EX:
+import json
+
+print("\n1a)Using The json.load() function.")
+filename = "numbers.json"
+with open(filename) as f_obj:
+    numbers = json.load(f_obj)
+print(numbers)
+# Explaining:
+# 1)First we import the 'json' module(import json)
+# 2)filename = 'numbers.json';Tells python store the json file 'numbers.json'
+# into varaible 'filename'
+# 3)with open(filename) as f_obj:;Tells python open the json file 'numbers.json'
+# stored in variable 'filename' and store the file object created by the open()
+# function in 'f_obj'
+# 4)The indented peices of code:
+# 4a)numbers = json.load(f_obj);Tells python to load the information stored in
+#'numbers.json' and store the contents in varibale 'numbers'
+# 5)Then we print the variable 'numbers' to see the list in the terminal.
+# -------------------------------------------------------------------------
+print("\n2)Saving and Reading User-Generated Data.")
+# -------------------------------------------------------------------------
+import json
+
+filename = "usernames.json"
+try:
+    with open(filename) as f_obj:
+        username = json.load(f_obj)
+except FileNotFoundError:
+    username = input("What is your name?")
+    with open(filename, "w") as f_obj:
+        json.dump(username, f_obj)
+        print("Cant wait for you to come back " + username + "!")
+else:
+    print("Welcome back," + username + "!")
+# Explaining:
+# 1)First we import the 'json' module.
+# 2)filename = "usernames.json";Tells python to create a json file named
+#'username.json' and store it in variable filename.
+# 3)try:;Tells python to try and open the file 'usernames.json' and store
+# the file object of variable filename('usernames.json') as 'f_obj'.And
+# load the json file object 'filename' and store the object in variable
+#'username'
+# 4)except FileNotFoundError:;Tells python if the error 'FileNotFound'
+# occurs,then prompt the user to enter there name and store it in the
+# variable 'username'.Then we open the filename(username.json) in write mode
+# and Then  use json.dump() function to store the new name stored in the
+# variable 'username' into  the 'filename' object  'f_obj'.To confirm that
+# the name was store we create a print statement to tell users we cant
+# wait for them to come back.
+# 5)else:;Tells python if the name enterd is already stored in the JSON file
+#'username.json' then print out a welcome back message with the stored name
+# from the JSON file 'username.json'
+# -------------------------------------------------------------------------
+print("\n2a)Refactoring")
+# -------------------------------------------------------------------------
+# Refactoring- improves your code by breaking it up into a series of
+# functions that have a specfic job.
+import json
+
+
+def get_stored_username():
+    """Get stored usernames if available."""
+    filename = "usernames.json"
+    try:
+        with open(filename) as f_obj:
+            username = json.load(f_obj)
+    except FileNotFoundError:
+        return None
+    else:
+        return username
+
+
+def new_user():
+    """Prompts for new username"""
+    username = input("What is your name?")
+    filename = "username.json"
+    with open(filename, "w") as f_obj:
+        json.dump(username, f_obj)
+    return username
+
+
+def greet_user():
+    """Greet the user by name"""
+    username = get_stored_username()
+    if username:
+        print("Glad to have you back " + username + "!")
+    else:
+        username = new_user()
+        print("We cant wait for you to come back " + username + "!")
+
+
+# Explaining:
+# 1)First we import the module json(import json)
+
+# EXPLAINING THE THREE FUNCTIONS 'get_stored_username','new_user','greet_user'
+
+# 2)get_stored_username():
+# 2a)def get_stored_username():;Here we define a function named 'get_stored_username'
+# 2b)"""Get stored usernames if available.""";This is a docstring that tells us
+# what the function does
+# 2c)filename = "usernames.json";Tells python to store the JSON file 'username.json'
+# into variable 'filename'.
+# 2d)try:;Tells python to try and open the JSON file stored in 'filename' and store
+# the object created from the open() function as 'f_obj'
+# 2e)username.json.load(f_obj);Tells python to take the username stored in the JSON
+# file 'usernames.json' and load the JSON file object 'f_obj' and store
+# the contents of that object in the variable 'username'.
+# 2f)except FileNotFoundError:;Tells python  if the error 'FileNotFound'
+# occurs then return 'None' to the terminal.
+# 2g)else:;Tells python if theres a username stored in the JSON object for
+# variable 'filename'('usernames.json') then return the username(s) that
+# are stored.
+
+# 3)new_user():
+# 3a)First we define a new function called 'new_user';def new_user():
+# 3b)"""Prompts for new username""";This is a docstring that tells users
+# what the function does.
+# 3c)username = input("What is your name?");Tells python to create a prompt
+# for the user to ask for there first name and store there first name
+# into the variable username.
+# 3b)filename = "username.json";Tells python to store the JSON file
+#'username.json' into the variable 'filename'
+# 3c) with open(filename, "w") as f_obj:;Tells python to open the
+# JSON file stored in variable 'filename' in write mode('w') and
+# store thd file object created by the open() function as 'f_obj'.
+# 3d)json.dump(username, f_obj);Tells python to store/dump the
+# contents stored in the variable 'usersame' in the JSON file object
+#'f_obj'.
+# 3e)return username;Tells python to return the user name stored in
+# variable 'username' back to the call line where the function 'new_user()'
+# is being called.
+
+
+# 4)greet_user():
+# 4a)First we define a function called 'greet_user'
+# 4b)"""Greet the user by name""";Tells the user what the function
+# does.
+# 4c)username = get_stored_username();Tells python to create a instance
+# of the function 'get_stored_username' and store it in variable
+# username.
+# 4d)if username:;Tells python if Theres a user name stored in the
+# the variable 'username' which is the JSON file object 'f_obj' then
+# print out a massage saying welcome back.
+# 4e)else:;Tells python to create a instance of the function 'new_user'
+# and store it in the variable 'username',which will in return
+# prompt you to enter your name,then print a message telling the
+# user can wait to have you back.
+# -------------------------------------------------------------------------
